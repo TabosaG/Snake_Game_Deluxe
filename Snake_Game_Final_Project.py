@@ -87,8 +87,12 @@ def show_highscores():
 
         # Show top 5 highscores
         if os.path.exists(HIGHSCORE_FILE):
-            with open(HIGHSCORE_FILE, "r", encoding="utf-8") as f:
-                lines = f.readlines()
+            try:
+                with open(HIGHSCORE_FILE, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+
+            except (PermissionError, FileNotFoundError):
+                lines = []
 
             # Sort from highest to lowest score
             def extract_score(line):
